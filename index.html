@@ -483,119 +483,130 @@ document.getElementById('mobileMenu').classList.add('hidden');
 
 
 
-<!-- Supabase JS -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 // ------------------ Supabase Setup ------------------
 const SUPABASE_URL = 'https://bcxzomwomlslqmnycuex.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJjeHpvbXdvbWxzbHFtbnljdWV4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgxNTc5NjUsImV4cCI6MjA4MzczMzk2NX0.IdHPS1ZWximjOFtaWvxQEFAdGVm6rPhgko2r6SBs_Oc';
+const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY_HERE'; // replace if needed
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 let authMode = 'signup'; // default mode
 
 // ------------------ Modal Functions ------------------
 function toggleMobileMenu() {
-document.getElementById('mobileMenu').classList.toggle('hidden');
+  document.getElementById('mobileMenu').classList.toggle('hidden');
 }
 
 function showAuth(mode) {
-authMode = mode;
-document.getElementById('authModal').classList.remove('hidden');
-updateAuthModal();
+  authMode = mode;
+  document.getElementById('authModal').classList.remove('hidden');
+  updateAuthModal();
 }
 
 function closeAuth() {
-document.getElementById('authModal').classList.add('hidden');
+  document.getElementById('authModal').classList.add('hidden');
 }
 
 function toggleAuthMode() {
-authMode = authMode === 'signup' ? 'login' : 'signup';
-updateAuthModal();
+  authMode = authMode === 'signup' ? 'login' : 'signup';
+  updateAuthModal();
 }
 
 function updateAuthModal() {
-if (authMode === 'signup') {
-document.getElementById('authTitle').textContent = 'Create Account';
-document.getElementById('authButton').textContent = 'Sign Up - Free';
-document.getElementById('authSwitch').textContent = 'Already have an account?';
-document.getElementById('authToggle').textContent = 'Login';
-} else {
-document.getElementById('authTitle').textContent = 'Login';
-document.getElementById('authButton').textContent = 'Login';
-document.getElementById('authSwitch').textContent = "Don't have an account?";
-document.getElementById('authToggle').textContent = 'Sign Up';
-}
+  if (authMode === 'signup') {
+    document.getElementById('authTitle').textContent = 'Create Account';
+    document.getElementById('authButton').textContent = 'Sign Up - Free';
+    document.getElementById('authSwitch').textContent = 'Already have an account?';
+    document.getElementById('authToggle').textContent = 'Login';
+  } else {
+    document.getElementById('authTitle').textContent = 'Login';
+    document.getElementById('authButton').textContent = 'Login';
+    document.getElementById('authSwitch').textContent = "Don't have an account?";
+    document.getElementById('authToggle').textContent = 'Sign Up';
+  }
 }
 
 // ------------------ Unlock Content ------------------
 function unlockContent() {
-// Hide all "Sign Up to Access" buttons
-document.querySelectorAll('.premium-button').forEach(btn => btn.style.display = 'none');
-// Show free content
-document.querySelectorAll('.free-content').forEach(el => el.classList.remove('hidden'));
+  // hide all "Sign Up to Access" buttons
+  document.querySelectorAll('button').forEach(btn => {
+    if (btn.textContent.includes('Sign Up to Access') || btn.textContent.includes('Sign Up Free')) {
+      btn.style.display = 'none';
+    }
+  });
+  // mark free content as unlocked (optional, if using .free-content class)
+  document.querySelectorAll('.free-content').forEach(el => el.classList.remove('hidden'));
 }
 
+// ------------------ Check Auth Session ------------------
 async function checkAuthAndUnlock() {
-const { data: { user } } = await supabase.auth.getUser();
-if (user) unlockContent();
+  const { data: { session } } = await supabase.auth.getSession();
+  if (session?.user) unlockContent();
 }
 
 // ------------------ Auth Handler ------------------
 async function handleAuth(event) {
-event.preventDefault();
-const form = event.target;
-const email = form.querySelector('input[type="email"]').value;
-const password = form.querySelector('input[type="password"]').value;
+  event.preventDefault();
+  const form = event.target;
+  const email = form.querySelector('input[type="email"]').value;
+  const password = form.querySelector('input[type="password"]').value;
 
-try {
-if (authMode === 'signup') {
-const { data, error } = await supabase.auth.signUp({ email, password });
-if (error) throw error;
-alert('🎉 Account created! Check your email to confirm. Free content unlocked!');
-} else {
-const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-if (error) throw error;
-alert('✅ Logged in successfully! Free content unlocked!');
+  try {
+    if (authMode === 'signup') {
+      const { error } = await supabase.auth.signUp({ email, password });
+      if (error) throw error;
+      alert('🎉 Account created! Check your email if needed. Free content unlocked!');
+    } else {
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) throw error;
+      alert('✅ Logged in successfully! Free content unlocked!');
+    }
+    closeAuth();
+    form.reset();
+    unlockContent();
+  } catch (err) {
+    alert('❌ Error: ' + err.message);
+  }
 }
-closeAuth();
-form.reset();
-unlockContent();
-} catch (err) {
-alert('❌ Error: ' + err.message);
-}
-}
+
+// ------------------ Listen for Auth State Changes ------------------
+supabase.auth.onAuthStateChange((event, session) => {
+  if (session?.user) {
+    unlockContent();
+  }
+});
 
 // ------------------ Premium/Voucher Functions ------------------
 function purchasePremium() {
-alert('🎉 Premium Access Purchased!\n\n✅ Your Premium Content is Now Unlocked!\n\n📱 NEXT STEP - Get Your Discord Role:\n1. Join our Discord: https://discord.gg/JYMTyK6TbR\n2. Go to the #verification channel\n3. Submit your purchase confirmation\n4. You\'ll receive the "eBook Member" role\n5. Access exclusive private channels!\n\nAll premium schemes are now unlocked!');
+  alert('🎉 Premium Access Purchased!\n\n✅ Your Premium Content is Now Unlocked!');
 }
 
 function redeemVoucher() {
-const code = document.getElementById('voucherInput').value.toUpperCase();
-const error = document.getElementById('voucherError');
+  const code = document.getElementById('voucherInput').value.toUpperCase();
+  const error = document.getElementById('voucherError');
 
-if (code === 'DFC5') {
-alert('🎉 Voucher Code Accepted! Welcome Back!\n\n✅ Your Premium Content is Now Unlocked!\n\n📱 DISCORD ACCESS:\n1. Join our Discord: https://discord.gg/JYMTyK6TbR\n2. Go to the #verification channel\n3. Submit your voucher code: DFC5\n4. You\'ll receive the "eBook Member" role\n5. Access exclusive private channels!\n\nAll premium schemes are now unlocked!');
-document.getElementById('voucherInput').value = '';
-error.classList.add('hidden');
-} else {
-error.classList.remove('hidden');
-}
+  if (code === 'DFC5') {
+    alert('🎉 Voucher Code Accepted! Premium Content Unlocked!');
+    document.getElementById('voucherInput').value = '';
+    error.classList.add('hidden');
+    unlockContent();
+  } else {
+    error.classList.remove('hidden');
+  }
 }
 
 // ------------------ Smooth Scroll ------------------
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-anchor.addEventListener('click', function (e) {
-e.preventDefault();
-const target = document.querySelector(this.getAttribute('href'));
-if (target) target.scrollIntoView({ behavior: 'smooth' });
-document.getElementById('mobileMenu').classList.add('hidden');
-});
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('mobileMenu').classList.add('hidden');
+  });
 });
 
-// ------------------ Check login status on page load ------------------
+// ------------------ Initialize ------------------
 window.addEventListener('DOMContentLoaded', () => {
-checkAuthAndUnlock();
+  checkAuthAndUnlock();
 });
 </script>
 
