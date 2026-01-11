@@ -1,199 +1,609 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DFC Dynasty - Madden Schemes</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            background: linear-gradient(to bottom right, #000000, #1f2937, #7f1d1d);
-        }
-        .gradient-text {
-            background: linear-gradient(to right, #f87171, #dc2626);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DFC Dynasty - Madden Schemes</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+body {
+background: linear-gradient(to bottom right, #000000, #1f2937, #7f1d1d);
+}
+.gradient-text {
+background: linear-gradient(to right, #f87171, #dc2626);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+}
+</style>
 </head>
 <body class="min-h-screen text-white">
-    <!-- Navigation -->
-    <nav class="bg-gray-900 border-b border-gray-800 sticky top-0 z-40">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center">
-                    <span class="text-2xl font-bold gradient-text">🏆 DFC Dynasty</span>
-                </div>
-                
-                <div class="hidden md:flex space-x-8">
-                    <a href="#home" class="text-gray-300 hover:text-white transition">Home</a>
-                    <a href="#offense" class="text-gray-300 hover:text-white transition">Offense</a>
-                    <a href="#defense" class="text-gray-300 hover:text-white transition">Defense</a>
-                    <a href="#pricing" class="text-gray-300 hover:text-white transition">Pricing</a>
-                    <a href="https://twitch.tv/Dfc_Killz" target="_blank" class="text-gray-300 hover:text-purple-400 transition">📺 Twitch</a>
-                    <a href="https://discord.gg/JYMTyK6TbR" target="_blank" class="text-gray-300 hover:text-blue-400 transition">💬 Discord</a>
-                </div>
+<!-- Navigation -->
+<nav class="bg-gray-900 border-b border-gray-800 sticky top-0 z-40">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-16">
+<div class="flex items-center">
+<span class="text-2xl font-bold gradient-text">🏆 DFC Dynasty</span>
+</div>
 
-                <div class="hidden md:flex items-center space-x-4">
-                    <button onclick="showAuth('login')" class="text-gray-300 hover:text-white transition">Login</button>
-                    <button onclick="showAuth('signup')" class="bg-red-600 px-4 py-2 rounded-lg hover:bg-red-700 transition">Sign Up</button>
-                </div>
+<div class="hidden md:flex space-x-8">
+<a href="#home" class="text-gray-300 hover:text-white transition">Home</a>
+<a href="#offense" class="text-gray-300 hover:text-white transition">Offense</a>
+<a href="#defense" class="text-gray-300 hover:text-white transition">Defense</a>
+<a href="#pricing" class="text-gray-300 hover:text-white transition">Pricing</a>
+<a href="https://twitch.tv/Dfc_Killz" target="_blank" class="text-gray-300 hover:text-purple-400 transition">📺 Twitch</a>
+<a href="https://discord.gg/JYMTyK6TbR" target="_blank" class="text-gray-300 hover:text-blue-400 transition">💬 Discord</a>
+</div>
 
-                <button onclick="toggleMobileMenu()" class="md:hidden text-white">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
-            </div>
-        </div>
+<div class="hidden md:flex items-center space-x-4">
+<button onclick="showAuth('login')" class="text-gray-300 hover:text-white transition">Login</button>
+<button onclick="showAuth('signup')" class="bg-red-600 px-4 py-2 rounded-lg hover:bg-red-700 transition">Sign Up</button>
+</div>
 
-        <!-- Mobile Menu -->
-        <div id="mobileMenu" class="hidden md:hidden bg-gray-800 border-t border-gray-700">
-            <div class="px-4 py-4 space-y-3">
-                <a href="#home" class="block text-gray-300 hover:text-white transition">Home</a>
-                <a href="#offense" class="block text-gray-300 hover:text-white transition">Offense</a>
-                <a href="#defense" class="block text-gray-300 hover:text-white transition">Defense</a>
-                <a href="#pricing" class="block text-gray-300 hover:text-white transition">Pricing</a>
-                <a href="https://twitch.tv/Dfc_Killz" target="_blank" class="block text-gray-300 hover:text-purple-400 transition">📺 Twitch</a>
-                <a href="https://discord.gg/JYMTyK6TbR" target="_blank" class="block text-gray-300 hover:text-blue-400 transition">💬 Discord</a>
-            </div>
-        </div>
-    </nav>
+<button onclick="toggleMobileMenu()" class="md:hidden text-white">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+</svg>
+</button>
+</div>
+</div>
 
-    <!-- Hero Section -->
-    <section id="home" class="py-24">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <h1 class="text-5xl md:text-7xl font-bold mb-6 gradient-text">Master Madden</h1>
-                <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
-                    Unlock elite offensive and defensive schemes. Dominate the competition with pro-level breakdowns and strategies.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button onclick="showAuth('signup')" class="bg-gradient-to-r from-red-600 to-black px-8 py-4 rounded-lg text-lg font-bold hover:from-red-700 hover:to-gray-900 transition-all transform hover:scale-105">
-                        Start Free Trial
-                    </button>
-                    <a href="#pricing" class="bg-gray-800 border border-red-700 px-8 py-4 rounded-lg text-lg font-bold hover:bg-gray-700 transition-all inline-block">
-                        View Premium
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- Mobile Menu -->
+<div id="mobileMenu" class="hidden md:hidden bg-gray-800 border-t border-gray-700">
+<div class="px-4 py-4 space-y-3">
+<a href="#home" class="block text-gray-300 hover:text-white transition">Home</a>
+<a href="#offense" class="block text-gray-300 hover:text-white transition">Offense</a>
+<a href="#defense" class="block text-gray-300 hover:text-white transition">Defense</a>
+<a href="#pricing" class="block text-gray-300 hover:text-white transition">Pricing</a>
+<a href="https://twitch.tv/Dfc_Killz" target="_blank" class="block text-gray-300 hover:text-purple-400 transition">📺 Twitch</a>
+<a href="https://discord.gg/JYMTyK6TbR" target="_blank" class="block text-gray-300 hover:text-blue-400 transition">💬 Discord</a>
+</div>
+</div>
+</nav>
 
-    <!-- Example Free/Premium Content -->
-    <section id="offense" class="py-12 bg-black bg-opacity-30">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl font-bold mb-8 text-center gradient-text">Offensive Schemes</h2>
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="bg-gray-800 p-6 rounded-lg border border-red-900">
-                    <h3 class="text-xl font-bold mb-2">Free Content - Lions Offense</h3>
-                    <p class="text-gray-400 mb-4">Basics of Detroit offense.</p>
-                </div>
-                <div class="bg-gray-800 p-6 rounded-lg border border-red-900">
-                    <h3 class="text-xl font-bold mb-2">Premium Content - Chiefs Offense</h3>
-                    <p class="text-gray-400 mb-4">Advanced breakdowns. <span class="premium-button cursor-pointer text-red-500 underline" onclick="showAuth('signup')">Sign Up to Unlock</span></p>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- Hero Section -->
+<section id="home" class="py-24">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center">
+<h1 class="text-5xl md:text-7xl font-bold mb-6 gradient-text">Master Madden</h1>
+<p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
+Unlock elite offensive and defensive schemes. Dominate the competition with pro-level breakdowns and strategies.
+</p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center">
+<button onclick="showAuth('signup')" class="bg-gradient-to-r from-red-600 to-black px-8 py-4 rounded-lg text-lg font-bold hover:from-red-700 hover:to-gray-900 transition-all transform hover:scale-105">
+Start Free Trial
+</button>
+<a href="#pricing" class="bg-gray-800 border border-red-700 px-8 py-4 rounded-lg text-lg font-bold hover:bg-gray-700 transition-all inline-block">
+View Premium
+</a>
+</div>
+</div>
 
-    <!-- Auth Modal -->
-    <div id="authModal" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
-        <div class="bg-gray-800 rounded-lg p-8 max-w-md w-full border border-gray-700">
-            <div class="flex justify-between items-center mb-6">
-                <h2 id="authTitle" class="text-2xl font-bold text-white">Create Account</h2>
-                <button onclick="closeAuth()" class="text-gray-400 hover:text-white">
-                    ✕
-                </button>
-            </div>
-            <form id="authForm">
-                <input type="email" placeholder="Email" id="authEmail" class="w-full bg-gray-700 text-white px-4 py-3 rounded-lg mb-4 border border-gray-600 focus:border-red-500 focus:outline-none" required>
-                <input type="password" placeholder="Password" id="authPassword" class="w-full bg-gray-700 text-white px-4 py-3 rounded-lg mb-6 border border-gray-600 focus:border-red-500 focus:outline-none" required>
-                <button type="submit" class="w-full bg-gradient-to-r from-red-600 to-black text-white py-3 rounded-lg font-bold hover:from-red-700 hover:to-gray-900 transition-all" id="authButton">Sign Up - Free</button>
-            </form>
-            <p class="text-center text-gray-400 mt-4">
-                <span id="authSwitch">Already have an account?</span>
-                <button onclick="toggleAuthMode()" class="text-red-500 hover:text-red-400 ml-1" id="authToggle">Login</button>
-            </p>
-        </div>
-    </div>
+<div class="grid md:grid-cols-3 gap-8 mt-20">
+<div class="bg-gray-800 p-8 rounded-lg border border-red-900">
+<div class="text-red-500 text-5xl mb-4">⚡</div>
+<h3 class="text-2xl font-bold mb-3">Pro Schemes</h3>
+<p class="text-gray-400">Learn from the best with detailed offensive and defensive breakdowns used by top players.</p>
+</div>
+<div class="bg-gray-800 p-8 rounded-lg border border-red-900">
+<div class="text-red-500 text-5xl mb-4">🛡️</div>
+<h3 class="text-2xl font-bold mb-3">Expert Analysis</h3>
+<p class="text-gray-400">Deep-dive into formations, adjustments, and reads that wins Superbowls, Gauntlets, and Even Madden Tournaments.</p>
+</div>
+<div class="bg-gray-800 p-8 rounded-lg border border-red-900">
+<div class="text-red-500 text-5xl mb-4">🏆</div>
+<h3 class="text-2xl font-bold mb-3">Discord Community</h3>
+<p class="text-gray-400">Join our premium Discord for live coaching, strategy sessions, and community support.</p>
+</div>
+</div>
+</div>
+</section>
 
-    <!-- Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-        const SUPABASE_URL = 'https://bcxzomwomlslqmnycuex.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJjeHpvbXdvbWxzbHFtbnljdWV4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgxNTc5NjUsImV4cCI6MjA4MzczMzk2NX0.IdHPS1ZWximjOFtaWvxQEFAdGVm6rPhgko2r6SBs_Oc';
-        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+<!-- Offensive Schemes -->
+<section id="offense" class="py-12 bg-black bg-opacity-30">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<h2 class="text-4xl font-bold mb-8 text-center gradient-text">Offensive Schemes</h2>
 
-        let authMode = 'signup';
+<div class="mb-12">
+<h3 class="text-2xl font-bold mb-6 flex items-center text-red-500">
+🔒 Premium Content
+</h3>
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="bg-gray-800 rounded-lg p-6 border border-red-900 hover:border-red-500 transition-all">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-xl font-bold">Kurt Benkurt's Offense</h3>
+<span class="text-red-500">🔒</span>
+</div>
+<p class="text-gray-400 mb-4">Complete offensive breakdown and playbook strategies</p>
+<button onclick="showAuth('signup')" class="w-full bg-gradient-to-r from-red-600 to-black text-white py-2 rounded-lg font-semibold hover:from-red-700 hover:to-gray-900 transition-all">
+Sign Up to Access
+</button>
+</div>
+<div class="bg-gray-800 rounded-lg p-6 border border-red-900 hover:border-red-500 transition-all">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-xl font-bold">Jaguars Offense</h3>
+<span class="text-red-500">🔒</span>
+</div>
+<p class="text-gray-400 mb-4">In-depth Jags offensive schemes and adjustments</p>
+<button onclick="showAuth('signup')" class="w-full bg-gradient-to-r from-red-600 to-black text-white py-2 rounded-lg font-semibold hover:from-red-700 hover:to-gray-900 transition-all">
+Sign Up to Access
+</button>
+</div>
+<div class="bg-gray-800 rounded-lg p-6 border border-red-900 hover:border-red-500 transition-all">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-xl font-bold">Chiefs Offense</h3>
+<span class="text-red-500">🔒</span>
+</div>
+<p class="text-gray-400 mb-4">KC offensive breakdown with RPOs, Bunch, and good redzone</p>
+<button onclick="showAuth('signup')" class="w-full bg-gradient-to-r from-red-600 to-black text-white py-2 rounded-lg font-semibold hover:from-red-700 hover:to-gray-900 transition-all">
+Sign Up to Access
+</button>
+</div>
+</div>
+</div>
 
-        function toggleMobileMenu() {
-            document.getElementById('mobileMenu').classList.toggle('hidden');
-        }
+<div>
+<h3 class="text-2xl font-bold mb-6 flex items-center text-red-400">
+🔓 Free Content (Sign Up Required)
+</h3>
+<div class="grid md:grid-cols-2 gap-6">
+<div class="bg-gray-800 rounded-lg p-6 border border-red-900 hover:border-red-500 transition-all">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-xl font-bold">Lions Offense</h3>
+<span class="text-red-400">🔓</span>
+</div>
+<p class="text-gray-400 mb-4">Detroit's offensive scheme fundamentals</p>
+<button onclick="showAuth('signup')" class="w-full bg-gradient-to-r from-red-600 to-black text-white py-2 rounded-lg font-semibold hover:from-red-700 hover:to-gray-900 transition-all">
+Sign Up to Access
+</button>
+</div>
+<div class="bg-gray-800 rounded-lg p-6 border border-red-900 hover:border-red-500 transition-all">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-xl font-bold">Jets Offense</h3>
+<span class="text-red-400">🔓</span>
+</div>
+<p class="text-gray-400 mb-4">NY Jets offensive playbook basics</p>
+<button onclick="showAuth('signup')" class="w-full bg-gradient-to-r from-red-600 to-black text-white py-2 rounded-lg font-semibold hover:from-red-700 hover:to-gray-900 transition-all">
+Sign Up to Access
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
 
-        function showAuth(mode) {
-            authMode = mode;
-            document.getElementById('authModal').classList.remove('hidden');
-            updateAuthModal();
-        }
+<!-- Defensive Schemes -->
+<section id="defense" class="py-12">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<h2 class="text-4xl font-bold mb-8 text-center gradient-text">Defensive Schemes</h2>
 
-        function closeAuth() {
-            document.getElementById('authModal').classList.add('hidden');
-        }
+<div class="mb-12">
+<h3 class="text-2xl font-bold mb-6 flex items-center text-red-500">
+🔒 Premium Content
+</h3>
+<div class="grid md:grid-cols-2 gap-6">
+<div class="bg-gray-800 rounded-lg p-6 border border-red-900 hover:border-red-500 transition-all">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-xl font-bold">Jags Dime 3-2</h3>
+<span class="text-red-500">🔒</span>
+</div>
+<p class="text-gray-400 mb-4">Complete Dime 3-2 setup and adjustments</p>
+<button onclick="showAuth('signup')" class="w-full bg-gradient-to-r from-red-600 to-black text-white py-2 rounded-lg font-semibold hover:from-red-700 hover:to-gray-900 transition-all">
+Sign Up to Access
+</button>
+</div>
+<div class="bg-gray-800 rounded-lg p-6 border border-red-900 hover:border-red-500 transition-all">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-xl font-bold">Double Mug Setup</h3>
+<span class="text-red-500">🔒</span>
+</div>
+<p class="text-gray-400 mb-4">Double Mug defensive schemes and coverage</p>
+<button onclick="showAuth('signup')" class="w-full bg-gradient-to-r from-red-600 to-black text-white py-2 rounded-lg font-semibold hover:from-red-700 hover:to-gray-900 transition-all">
+Sign Up to Access
+</button>
+</div>
+</div>
+</div>
 
-        function toggleAuthMode() {
-            authMode = authMode === 'signup' ? 'login' : 'signup';
-            updateAuthModal();
-        }
+<div>
+<h3 class="text-2xl font-bold mb-6 flex items-center text-red-400">
+🔓 Free Content (Sign Up Required)
+</h3>
+<div class="grid md:grid-cols-2 gap-6">
+<div class="bg-gray-800 rounded-lg p-6 border border-red-900 hover:border-red-500 transition-all">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-xl font-bold">Patriots Defense</h3>
+<span class="text-red-400">🔓</span>
+</div>
+<p class="text-gray-400 mb-4">New England defensive scheme basics</p>
+<button onclick="showAuth('signup')" class="w-full bg-gradient-to-r from-red-600 to-black text-white py-2 rounded-lg font-semibold hover:from-red-700 hover:to-gray-900 transition-all">
+Sign Up to Access
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
 
-        function updateAuthModal() {
-            if (authMode === 'signup') {
-                document.getElementById('authTitle').textContent = 'Create Account';
-                document.getElementById('authButton').textContent = 'Sign Up - Free';
-                document.getElementById('authSwitch').textContent = 'Already have an account?';
-                document.getElementById('authToggle').textContent = 'Login';
-            } else {
-                document.getElementById('authTitle').textContent = 'Login';
-                document.getElementById('authButton').textContent = 'Login';
-                document.getElementById('authSwitch').textContent = "Don't have an account?";
-                document.getElementById('authToggle').textContent = 'Sign Up';
-            }
-        }
+<!-- Pricing -->
+<section id="pricing" class="py-12 bg-black bg-opacity-30">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<h2 class="text-4xl font-bold mb-4 text-center">Choose Your Plan</h2>
+<p class="text-center text-gray-400 mb-12">Already purchased my ebook? Redeem your access below!</p>
 
-        async function unlockContent() {
-            document.querySelectorAll('.premium-button').forEach(btn => btn.style.display = 'none');
-        }
+<!-- Voucher Code Section -->
+<div class="max-w-md mx-auto mb-12 bg-gradient-to-r from-red-900 to-black rounded-lg p-6 border border-red-500">
+<h3 class="text-2xl font-bold mb-4 text-center">Have a Voucher Code?</h3>
+<p class="text-gray-300 text-center mb-4">If you previously purchased my ebook, enter your code to unlock premium access!</p>
+<div class="space-y-3">
+<input
+type="text"
+id="voucherInput"
+placeholder="Enter voucher code (e.g., DFC5)"
+class="w-full bg-gray-800 text-white px-4 py-3 rounded-lg border border-gray-600 focus:border-red-500 focus:outline-none uppercase"
+/>
+<p id="voucherError" class="text-red-400 text-sm text-center hidden">Invalid voucher code. Please try again.</p>
+<button
+onclick="redeemVoucher()"
+class="w-full bg-gradient-to-r from-red-600 to-black text-white py-3 rounded-lg font-bold hover:from-red-700 hover:to-gray-900 transition-all"
+>
+Redeem Code
+</button>
+</div>
+</div>
 
-        async function handleAuth(event) {
-            event.preventDefault();
-            const email = document.getElementById('authEmail').value;
-            const password = document.getElementById('authPassword').value;
+<div class="text-center mb-8">
+<div class="inline-block bg-gray-800 px-6 py-2 rounded-full">
+<span class="text-gray-400">or choose a plan below</span>
+</div>
+</div>
 
-            try {
-                if (authMode === 'signup') {
-                    const { data, error } = await supabase.auth.signUp({ email, password });
-                    if (error) throw error;
-                    alert('🎉 Account created! Free content unlocked.');
-                } else {
-                    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-                    if (error) throw error;
-                    alert('✅ Logged in successfully! Free content unlocked.');
-                }
-                closeAuth();
-                unlockContent();
-            } catch (err) {
-                alert('❌ Error: ' + err.message);
-            }
-        }
+<div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+<!-- Free Tier -->
+<div class="bg-gray-800 rounded-lg p-8 border border-gray-700">
+<h3 class="text-2xl font-bold mb-2">Free Membership</h3>
+<p class="text-4xl font-bold mb-6 text-red-500">$0</p>
+<ul class="space-y-3 mb-8">
+<li class="flex items-start">
+<span class="text-red-500 mr-2">✓</span>
+<span>Lions Offense Breakdown</span>
+</li>
+<li class="flex items-start">
+<span class="text-red-500 mr-2">✓</span>
+<span>Jets Offense Breakdown</span>
+</li>
+<li class="flex items-start">
+<span class="text-red-500 mr-2">✓</span>
+<span>Patriots Defense Breakdown</span>
+</li>
+<li class="flex items-start">
+<span class="text-red-500 mr-2">✓</span>
+<span>Community Forum Access</span>
+</li>
+</ul>
+<button onclick="showAuth('signup')" class="w-full bg-gray-700 text-white py-3 rounded-lg font-bold hover:bg-gray-600 transition-all">
+Sign Up Free
+</button>
+</div>
 
-        document.getElementById('authForm').addEventListener('submit', handleAuth);
+<!-- Premium Tier -->
+<div class="bg-gradient-to-br from-red-600 to-black rounded-lg p-8 border-2 border-red-500 relative">
+<div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-4 py-1 rounded-full text-sm font-bold">
+BEST VALUE - ONE TIME PAYMENT
+</div>
+<h3 class="text-2xl font-bold mb-2">Premium Access</h3>
+<div class="mb-2">
+<p class="text-5xl font-bold">$35</p>
+<p class="text-sm text-gray-300 line-through">No monthly fees!</p>
+</div>
+<div class="bg-black bg-opacity-50 rounded-lg p-4 mb-6 border border-red-500">
+<p class="text-center font-bold text-red-300 text-lg">🔥 LIFETIME ACCESS 🔥</p>
+<p class="text-center text-sm text-gray-300 mt-2">
+You will have access for the ENTIRE MADDEN 26 cycle! All updates, all schemes, all content - nothing monthly. Pay once, dominate all year!
+</p>
+</div>
+<ul class="space-y-3 mb-8 text-sm">
+<li class="flex items-start">
+<span class="text-white mr-2">✓</span>
+<span>All Free Content</span>
+</li>
+<li class="flex items-start">
+<span class="text-white mr-2">✓</span>
+<span>Kurt Benkurt's Complete Offense</span>
+</li>
+<li class="flex items-start">
+<span class="text-white mr-2">✓</span>
+<span>Jaguars & Chiefs Offense</span>
+</li>
+<li class="flex items-start">
+<span class="text-white mr-2">✓</span>
+<span>Jags Dime 3-2 Defense</span>
+</li>
+<li class="flex items-start">
+<span class="text-white mr-2">✓</span>
+<span>Double Mug Setup</span>
+</li>
+<li class="flex items-start">
+<span class="text-red-300 mr-2">✓</span>
+<span class="font-bold">Exclusive Discord "eBook Member" Role</span>
+</li>
+<li class="flex items-start">
+<span class="text-red-300 mr-2">✓</span>
+<span class="font-bold">Access to Private Discord Channels</span>
+</li>
+<li class="flex items-start">
+<span class="text-white mr-2">✓</span>
+<span class="font-bold">Weekly Strategy Updates</span>
+</li>
+</ul>
+<button onclick="purchasePremium()" class="w-full bg-white text-red-600 py-3 rounded-lg font-bold hover:bg-gray-100 transition-all">
+Get Premium Access
+</button>
+</div>
+</div>
+</div>
+</section>
 
-        // Check user session on load
-        window.addEventListener('DOMContentLoaded', async () => {
-            const { data: { session } } = await supabase.auth.getSession();
-            if(session?.user) unlockContent();
-        });
-    </script>
+<!-- Footer -->
+<footer class="bg-gray-900 border-t border-gray-800 mt-20">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+<div class="text-gray-400">
+<p>&copy; 2026 DFC Dynasty. Dominate the field.</p>
+</div>
+<div class="flex space-x-6">
+<a href="https://twitch.tv/Dfc_Killz" target="_blank" class="text-gray-400 hover:text-purple-400 transition">
+📺 Dfc_Killz
+</a>
+<a href="https://discord.gg/JYMTyK6TbR" target="_blank" class="text-gray-400 hover:text-blue-400 transition">
+💬 Join Discord
+</a>
+</div>
+</div>
+</div>
+</footer>
+
+<!-- Auth Modal -->
+<div id="authModal" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
+<div class="bg-gray-800 rounded-lg p-8 max-w-md w-full border border-gray-700">
+<div class="flex justify-between items-center mb-6">
+<h2 id="authTitle" class="text-2xl font-bold text-white">Create Account</h2>
+<button onclick="closeAuth()" class="text-gray-400 hover:text-white">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+</svg>
+</button>
+</div>
+<form onsubmit="handleAuth(event)">
+<input
+type="email"
+placeholder="Email"
+class="w-full bg-gray-700 text-white px-4 py-3 rounded-lg mb-4 border border-gray-600 focus:border-red-500 focus:outline-none"
+required
+/>
+<input
+type="password"
+placeholder="Password"
+class="w-full bg-gray-700 text-white px-4 py-3 rounded-lg mb-6 border border-gray-600 focus:border-red-500 focus:outline-none"
+required
+/>
+<button
+type="submit"
+class="w-full bg-gradient-to-r from-red-600 to-black text-white py-3 rounded-lg font-bold hover:from-red-700 hover:to-gray-900 transition-all"
+>
+<span id="authButton">Sign Up - Free</span>
+</button>
+</form>
+<p class="text-center text-gray-400 mt-4">
+<span id="authSwitch">Already have an account?</span>
+<button onclick="toggleAuthMode()" class="text-red-500 hover:text-red-400 ml-1" id="authToggle">
+Login
+</button>
+</p>
+</div>
+</div>
+
+<script>
+let authMode = 'signup';
+
+function toggleMobileMenu() {
+const menu = document.getElementById('mobileMenu');
+menu.classList.toggle('hidden');
+}
+
+function showAuth(mode) {
+authMode = mode;
+document.getElementById('authModal').classList.remove('hidden');
+updateAuthModal();
+}
+
+function closeAuth() {
+document.getElementById('authModal').classList.add('hidden');
+}
+
+function toggleAuthMode() {
+authMode = authMode === 'signup' ? 'login' : 'signup';
+updateAuthModal();
+}
+
+function updateAuthModal() {
+if (authMode === 'signup') {
+document.getElementById('authTitle').textContent = 'Create Account';
+document.getElementById('authButton').textContent = 'Sign Up - Free';
+document.getElementById('authSwitch').textContent = 'Already have an account?';
+document.getElementById('authToggle').textContent = 'Login';
+} else {
+document.getElementById('authTitle').textContent = 'Login';
+document.getElementById('authButton').textContent = 'Login';
+document.getElementById('authSwitch').textContent = "Don't have an account?";
+document.getElementById('authToggle').textContent = 'Sign Up';
+}
+}
+
+function handleAuth(event) {
+event.preventDefault();
+if (authMode === 'signup') {
+alert('Account created! You now have access to free content.');
+} else {
+alert('Logged in successfully!');
+}
+closeAuth();
+}
+
+function purchasePremium() {
+alert('🎉 Premium Access Purchased!\n\n✅ Your Premium Content is Now Unlocked!\n\n📱 NEXT STEP - Get Your Discord Role:\n1. Join our Discord: https://discord.gg/JYMTyK6TbR\n2. Go to the #verification channel\n3. Submit your purchase confirmation\n4. You\'ll receive the "eBook Member" role\n5. Access exclusive private channels!\n\nAll premium schemes are now unlocked!');
+}
+
+function redeemVoucher() {
+const code = document.getElementById('voucherInput').value.toUpperCase();
+const error = document.getElementById('voucherError');
+
+if (code === 'DFC5') {
+alert('🎉 Voucher Code Accepted! Welcome Back!\n\n✅ Your Premium Content is Now Unlocked!\n\n📱 DISCORD ACCESS:\n1. Join our Discord: https://discord.gg/JYMTyK6TbR\n2. Go to the #verification channel\n3. Submit your voucher code: DFC5\n4. You\'ll receive the "eBook Member" role\n5. Access exclusive private channels!\n\nAll premium schemes are now unlocked!');
+document.getElementById('voucherInput').value = '';
+error.classList.add('hidden');
+} else {
+error.classList.remove('hidden');
+}
+}
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+anchor.addEventListener('click', function (e) {
+e.preventDefault();
+const target = document.querySelector(this.getAttribute('href'));
+if (target) {
+target.scrollIntoView({ behavior: 'smooth' });
+}
+// Close mobile menu if open
+document.getElementById('mobileMenu').classList.add('hidden');
+});
+});
+</script>
+
+
+
+<!-- Supabase JS -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+// ------------------ Supabase Setup ------------------
+const SUPABASE_URL = 'https://bcxzomwomlslqmnycuex.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJjeHpvbXdvbWxzbHFtbnljdWV4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgxNTc5NjUsImV4cCI6MjA4MzczMzk2NX0.IdHPS1ZWximjOFtaWvxQEFAdGVm6rPhgko2r6SBs_Oc';
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+let authMode = 'signup'; // default mode
+
+// ------------------ Modal Functions ------------------
+function toggleMobileMenu() {
+document.getElementById('mobileMenu').classList.toggle('hidden');
+}
+
+function showAuth(mode) {
+authMode = mode;
+document.getElementById('authModal').classList.remove('hidden');
+updateAuthModal();
+}
+
+function closeAuth() {
+document.getElementById('authModal').classList.add('hidden');
+}
+
+function toggleAuthMode() {
+authMode = authMode === 'signup' ? 'login' : 'signup';
+updateAuthModal();
+}
+
+function updateAuthModal() {
+if (authMode === 'signup') {
+document.getElementById('authTitle').textContent = 'Create Account';
+document.getElementById('authButton').textContent = 'Sign Up - Free';
+document.getElementById('authSwitch').textContent = 'Already have an account?';
+document.getElementById('authToggle').textContent = 'Login';
+} else {
+document.getElementById('authTitle').textContent = 'Login';
+document.getElementById('authButton').textContent = 'Login';
+document.getElementById('authSwitch').textContent = "Don't have an account?";
+document.getElementById('authToggle').textContent = 'Sign Up';
+}
+}
+
+// ------------------ Unlock Content ------------------
+function unlockContent() {
+// Hide all "Sign Up to Access" buttons
+document.querySelectorAll('.premium-button').forEach(btn => btn.style.display = 'none');
+// Show free content
+document.querySelectorAll('.free-content').forEach(el => el.classList.remove('hidden'));
+}
+
+async function checkAuthAndUnlock() {
+const { data: { user } } = await supabase.auth.getUser();
+if (user) unlockContent();
+}
+
+// ------------------ Auth Handler ------------------
+async function handleAuth(event) {
+event.preventDefault();
+const form = event.target;
+const email = form.querySelector('input[type="email"]').value;
+const password = form.querySelector('input[type="password"]').value;
+
+try {
+if (authMode === 'signup') {
+const { data, error } = await supabase.auth.signUp({ email, password });
+if (error) throw error;
+alert('🎉 Account created! Check your email to confirm. Free content unlocked!');
+} else {
+const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+if (error) throw error;
+alert('✅ Logged in successfully! Free content unlocked!');
+}
+closeAuth();
+form.reset();
+unlockContent();
+} catch (err) {
+alert('❌ Error: ' + err.message);
+}
+}
+
+// ------------------ Premium/Voucher Functions ------------------
+function purchasePremium() {
+alert('🎉 Premium Access Purchased!\n\n✅ Your Premium Content is Now Unlocked!\n\n📱 NEXT STEP - Get Your Discord Role:\n1. Join our Discord: https://discord.gg/JYMTyK6TbR\n2. Go to the #verification channel\n3. Submit your purchase confirmation\n4. You\'ll receive the "eBook Member" role\n5. Access exclusive private channels!\n\nAll premium schemes are now unlocked!');
+}
+
+function redeemVoucher() {
+const code = document.getElementById('voucherInput').value.toUpperCase();
+const error = document.getElementById('voucherError');
+
+if (code === 'DFC5') {
+alert('🎉 Voucher Code Accepted! Welcome Back!\n\n✅ Your Premium Content is Now Unlocked!\n\n📱 DISCORD ACCESS:\n1. Join our Discord: https://discord.gg/JYMTyK6TbR\n2. Go to the #verification channel\n3. Submit your voucher code: DFC5\n4. You\'ll receive the "eBook Member" role\n5. Access exclusive private channels!\n\nAll premium schemes are now unlocked!');
+document.getElementById('voucherInput').value = '';
+error.classList.add('hidden');
+} else {
+error.classList.remove('hidden');
+}
+}
+
+// ------------------ Smooth Scroll ------------------
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+anchor.addEventListener('click', function (e) {
+e.preventDefault();
+const target = document.querySelector(this.getAttribute('href'));
+if (target) target.scrollIntoView({ behavior: 'smooth' });
+document.getElementById('mobileMenu').classList.add('hidden');
+});
+});
+
+// ------------------ Check login status on page load ------------------
+window.addEventListener('DOMContentLoaded', () => {
+checkAuthAndUnlock();
+});
+</script>
+
+
+
+
+
+
+
 </body>
 </html>
