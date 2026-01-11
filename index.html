@@ -526,25 +526,69 @@ function updateAuthModal() {
 }
 
 // ------------------ Unlock Content ------------------
-function unlockContent() {
-  // hide all "Sign Up to Access" buttons
-  document.querySelectorAll('button').forEach(btn => {
-    if (btn.textContent.includes('Sign Up to Access') || btn.textContent.includes('Sign Up Free')) {
-      btn.style.display = 'none';
-    }
-  });
-  // mark free content as unlocked (optional, if using .free-content class)
+// function unlockContent() {
+//   // hide all "Sign Up to Access" buttons
+//   document.querySelectorAll('button').forEach(btn => {
+//     if (btn.textContent.includes('Sign Up to Access') || btn.textContent.includes('Sign Up Free')) {
+//       btn.style.display = 'none';
+//     }
+//   });
+//   // mark free content as unlocked (optional, if using .free-content class)
+//   document.querySelectorAll('.free-content').forEach(el => el.classList.remove('hidden'));
+// }
+
+  function unlockContent() {
+  // Hide all "Sign Up to Access" buttons
+  document.querySelectorAll('button[onclick^="showAuth"]').forEach(btn => btn.style.display = 'none');
+  // Show free content (if you want to reveal hidden sections)
   document.querySelectorAll('.free-content').forEach(el => el.classList.remove('hidden'));
 }
 
 // ------------------ Check Auth Session ------------------
-async function checkAuthAndUnlock() {
-  const { data: { session } } = await supabase.auth.getSession();
-  if (session?.user) unlockContent();
+// async function checkAuthAndUnlock() {
+//   const { data: { session } } = await supabase.auth.getSession();
+//   if (session?.user) unlockContent();
+// }
+
+  async function checkAuthAndUnlock() {
+  const { data: { user } } = await supabase.auth.getUser();
+  
+  if (user) {
+    unlockContent(); // Only unlock content, no alert
+    console.log('User is logged in:', user.email);
+  } else {
+    console.log('No user logged in');
+  }
 }
 
 // ------------------ Auth Handler ------------------
-async function handleAuth(event) {
+// async function handleAuth(event) {
+//   event.preventDefault();
+//   const form = event.target;
+//   const email = form.querySelector('input[type="email"]').value;
+//   const password = form.querySelector('input[type="password"]').value;
+
+//   try {
+//     if (authMode === 'signup') {
+//       const { error } = await supabase.auth.signUp({ email, password });
+//       if (error) throw error;
+//       alert('🎉 Account created! Check your email if needed. Free content unlocked!');
+//     } else {
+//       const { error } = await supabase.auth.signInWithPassword({ email, password });
+//       if (error) throw error;
+//       alert('✅ Logged in successfully! Free content unlocked!');
+//     }
+//     closeAuth();
+//     form.reset();
+//     unlockContent();
+//   } catch (err) {
+//     alert('❌ Error: ' + err.message);
+//   }
+// }
+
+
+
+  async function handleAuth(event) {
   event.preventDefault();
   const form = event.target;
   const email = form.querySelector('input[type="email"]').value;
@@ -552,17 +596,18 @@ async function handleAuth(event) {
 
   try {
     if (authMode === 'signup') {
-      const { error } = await supabase.auth.signUp({ email, password });
+      const { data, error } = await supabase.auth.signUp({ email, password });
       if (error) throw error;
-      alert('🎉 Account created! Check your email if needed. Free content unlocked!');
+      alert('🎉 Account created! Check your email to confirm. Free content unlocked!');
     } else {
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) throw error;
       alert('✅ Logged in successfully! Free content unlocked!');
     }
+
     closeAuth();
     form.reset();
-    unlockContent();
+    unlockContent(); // unlock content once
   } catch (err) {
     alert('❌ Error: ' + err.message);
   }
@@ -576,6 +621,12 @@ supabase.auth.onAuthStateChange((event, session) => {
 });
 
 // ------------------ Premium/Voucher Functions ------------------
+
+
+
+
+
+  
 function purchasePremium() {
   alert('🎉 Premium Access Purchased!\n\n✅ Your Premium Content is Now Unlocked!');
 }
@@ -608,6 +659,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 window.addEventListener('DOMContentLoaded', () => {
   checkAuthAndUnlock();
 });
+
+
+  
 </script>
 
 
