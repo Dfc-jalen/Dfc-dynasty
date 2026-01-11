@@ -403,6 +403,12 @@ Login
 </div>
 </div>
 
+
+
+
+
+
+  
 <script>
 let authMode = 'signup';
 
@@ -450,6 +456,57 @@ alert('Logged in successfully!');
 closeAuth();
 }
 
+
+
+
+ 
+  let authMode = 'signup'; // default mode
+
+  async function handleAuth(event) {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.querySelector('input[type="email"]').value;
+    const password = form.querySelector('input[type="password"]').value;
+
+    try {
+      if (authMode === 'signup') {
+        const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+        alert('🎉 Account created! Free content unlocked!');
+      } else {
+        const userCredential = await auth.signInWithEmailAndPassword(email, password);
+        alert('✅ Logged in successfully! Free content unlocked!');
+      }
+      form.reset();
+      closeAuth();
+      unlockContent();
+    } catch (error) {
+      alert('❌ Error: ' + error.message);
+    }
+  }
+
+  // Automatically check if user is logged in on page load
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      unlockContent();
+    }
+  });
+
+  function unlockContent() {
+    // Hide all signup buttons
+    document.querySelectorAll('button[onclick*="showAuth"]').forEach(btn => btn.style.display = 'none');
+    // Optionally remove locks from content
+    document.querySelectorAll('.premium-button').forEach(btn => btn.style.display = 'none');
+    // Add a class or remove "hidden" from free content if you want
+    document.querySelectorAll('.free-content').forEach(el => el.classList.remove('hidden'));
+  }
+
+
+
+
+
+
+
+  
 function purchasePremium() {
 alert('🎉 Premium Access Purchased!\n\n✅ Your Premium Content is Now Unlocked!\n\n📱 NEXT STEP - Get Your Discord Role:\n1. Join our Discord: https://discord.gg/JYMTyK6TbR\n2. Go to the #verification channel\n3. Submit your purchase confirmation\n4. You\'ll receive the "eBook Member" role\n5. Access exclusive private channels!\n\nAll premium schemes are now unlocked!');
 }
@@ -659,11 +716,36 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 window.addEventListener('DOMContentLoaded', () => {
   checkAuthAndUnlock();
 });
+  
 
 
   
 </script>
 
+<!-- Firebase App (always required) -->
+<script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js"></script>
+
+<!-- Firebase Authentication -->
+<script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js"></script>
+
+<!-- Firebase Firestore (for tracking premium unlocks later) -->
+<script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js"></script>
+
+  <script>
+  // Initialize Firebase
+  const app = firebase.initializeApp({
+    apiKey: "AIzaSyCLBNPDxjTLE9DqECxyOW2DKW1zjDd2cic",
+    authDomain: "dfcdynasty.firebaseapp.com",
+    projectId: "dfcdynasty",
+    storageBucket: "dfcdynasty.firebasestorage.app",
+    messagingSenderId: "554196354924",
+    appId: "1:554196354924:web:46cd13b6a3490f32d15549",
+    measurementId: "G-F9FET41Z8W"
+  });
+
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+</script>
 
 
 
