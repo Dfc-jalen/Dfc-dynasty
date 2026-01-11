@@ -485,15 +485,15 @@
     
     <!-- Supabase JS -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script>
-  // Initialize Supabase
+  // ------------------ Supabase Setup ------------------
   const SUPABASE_URL = 'https://bcxzomwomlslqmnycuex.supabase.co';
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJjeHpvbXdvbWxzbHFtbnljdWV4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgxNTc5NjUsImV4cCI6MjA4MzczMzk2NX0.IdHPS1ZWximjOFtaWvxQEFAdGVm6rPhgko2r6SBs_Oc';
   const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
   let authMode = 'signup'; // default mode
 
+  // ------------------ Modal Functions ------------------
   function toggleMobileMenu() {
       document.getElementById('mobileMenu').classList.toggle('hidden');
   }
@@ -527,6 +527,20 @@
       }
   }
 
+  // ------------------ Unlock Content ------------------
+  function unlockContent() {
+      // Hide all "Sign Up to Access" buttons
+      document.querySelectorAll('.premium-button').forEach(btn => btn.style.display = 'none');
+      // Show free content
+      document.querySelectorAll('.free-content').forEach(el => el.classList.remove('hidden'));
+  }
+
+  async function checkAuthAndUnlock() {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) unlockContent();
+  }
+
+  // ------------------ Auth Handler ------------------
   async function handleAuth(event) {
       event.preventDefault();
       const form = event.target;
@@ -537,19 +551,21 @@
           if (authMode === 'signup') {
               const { data, error } = await supabase.auth.signUp({ email, password });
               if (error) throw error;
-              alert('🎉 Account created! Check your email to confirm. You now have access to free content.');
+              alert('🎉 Account created! Check your email to confirm. Free content unlocked!');
           } else {
               const { data, error } = await supabase.auth.signInWithPassword({ email, password });
               if (error) throw error;
-              alert('✅ Logged in successfully! Enjoy your free content.');
+              alert('✅ Logged in successfully! Free content unlocked!');
           }
           closeAuth();
           form.reset();
+          unlockContent();
       } catch (err) {
           alert('❌ Error: ' + err.message);
       }
   }
 
+  // ------------------ Premium/Voucher Functions ------------------
   function purchasePremium() {
       alert('🎉 Premium Access Purchased!\n\n✅ Your Premium Content is Now Unlocked!\n\n📱 NEXT STEP - Get Your Discord Role:\n1. Join our Discord: https://discord.gg/JYMTyK6TbR\n2. Go to the #verification channel\n3. Submit your purchase confirmation\n4. You\'ll receive the "eBook Member" role\n5. Access exclusive private channels!\n\nAll premium schemes are now unlocked!');
   }
@@ -567,7 +583,7 @@
       }
   }
 
-  // Smooth scroll for anchor links
+  // ------------------ Smooth Scroll ------------------
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
           e.preventDefault();
@@ -576,7 +592,13 @@
           document.getElementById('mobileMenu').classList.add('hidden');
       });
   });
+
+  // ------------------ Check login status on page load ------------------
+  window.addEventListener('DOMContentLoaded', () => {
+      checkAuthAndUnlock();
+  });
 </script>
+
 
 
 
