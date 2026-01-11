@@ -542,9 +542,8 @@ document.getElementById('mobileMenu').classList.add('hidden');
 
 <script>
 // ------------------ Supabase Setup ------------------
-const SUPABASE_URL = 'https://bcxzomwomlslqmnycuex.supabase.co';
-const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY_HERE'; // replace if needed
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  
 
 let authMode = 'signup'; // default mode
 
@@ -607,16 +606,6 @@ function updateAuthModal() {
 //   if (session?.user) unlockContent();
 // }
 
-  async function checkAuthAndUnlock() {
-  const { data: { user } } = await supabase.auth.getUser();
-  
-  if (user) {
-    unlockContent(); // Only unlock content, no alert
-    console.log('User is logged in:', user.email);
-  } else {
-    console.log('No user logged in');
-  }
-}
 
 // ------------------ Auth Handler ------------------
 // async function handleAuth(event) {
@@ -651,31 +640,8 @@ function updateAuthModal() {
   const email = form.querySelector('input[type="email"]').value;
   const password = form.querySelector('input[type="password"]').value;
 
-  try {
-    if (authMode === 'signup') {
-      const { data, error } = await supabase.auth.signUp({ email, password });
-      if (error) throw error;
-      alert('🎉 Account created! Check your email to confirm. Free content unlocked!');
-    } else {
-      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) throw error;
-      alert('✅ Logged in successfully! Free content unlocked!');
-    }
-
-    closeAuth();
-    form.reset();
-    unlockContent(); // unlock content once
-  } catch (err) {
-    alert('❌ Error: ' + err.message);
-  }
-}
-
+ 
 // ------------------ Listen for Auth State Changes ------------------
-supabase.auth.onAuthStateChange((event, session) => {
-  if (session?.user) {
-    unlockContent();
-  }
-});
 
 // ------------------ Premium/Voucher Functions ------------------
 
