@@ -1,9 +1,8 @@
-<!-- Firebase App (the core Firebase SDK) -->
+<!-- Firebase SDKs -->
 <script src="https://www.gstatic.com/firebasejs/10.6.1/firebase-app-compat.js"></script>
-<!-- Firebase Authentication -->
 <script src="https://www.gstatic.com/firebasejs/10.6.1/firebase-auth-compat.js"></script>
 
-
+<script>
 // ------------------ Firebase Setup ------------------
 const firebaseConfig = {
   apiKey: "AIzaSyCLBNPDxjTLE9DqECxyOW2DKW1zjDd2cic",
@@ -15,8 +14,11 @@ const firebaseConfig = {
   measurementId: "G-F9FET41Z8W"
 };
 
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
 
-<script>
+// ------------------ Auth Modal ------------------
 let authMode = 'signup';
 
 function toggleMobileMenu() {
@@ -53,19 +55,8 @@ function updateAuthModal() {
   }
 }
 
-// Simple auth simulation (Supabase removed)
-// function handleAuth(event) {
-//   event.preventDefault();
-//   if (authMode === 'signup') {
-//     alert('🎉 Account created! You now have access to free content.');
-//   } else {
-//     alert('✅ Logged in successfully!');
-//   }
-//   closeAuth();
-//   unlockContent();
-// }
-
-  async function handleAuth(event) {
+// ------------------ Handle Auth ------------------
+async function handleAuth(event) {
   event.preventDefault();
   const form = event.target;
   const email = form.querySelector('input[type="email"]').value;
@@ -87,25 +78,18 @@ function updateAuthModal() {
   }
 }
 
-
-  auth.onAuthStateChanged(user => {
-  if (user) {
-    unlockContent();
-  }
+// ------------------ Auth State Listener ------------------
+auth.onAuthStateChanged(user => {
+  if (user) unlockContent();
 });
 
-
-
-
-  
-
-// Unlock content
+// ------------------ Unlock Content ------------------
 function unlockContent() {
   // Hide all "Sign Up to Access" buttons
   document.querySelectorAll('button[onclick="showAuth(\'signup\')"]').forEach(btn => btn.style.display = 'none');
 }
 
-// Premium and voucher functions
+// ------------------ Premium / Voucher ------------------
 function purchasePremium() {
   alert('🎉 Premium Access Purchased!\n\n✅ Your Premium Content is Now Unlocked!\n\n📱 NEXT STEP - Get Your Discord Role:\n1. Join our Discord: https://discord.gg/JYMTyK6TbR\n2. Go to the #verification channel\n3. Submit your purchase confirmation\n4. You\'ll receive the "eBook Member" role\n5. Access exclusive private channels!\n\nAll premium schemes are now unlocked!');
 }
@@ -123,7 +107,7 @@ function redeemVoucher() {
   }
 }
 
-// Smooth scroll for anchor links
+// ------------------ Smooth Scroll ------------------
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
     e.preventDefault();
@@ -131,10 +115,5 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     if (target) target.scrollIntoView({ behavior: 'smooth' });
     document.getElementById('mobileMenu').classList.add('hidden');
   });
-});
-
-// Optional: Unlock free content automatically for demo purposes
-window.addEventListener('DOMContentLoaded', () => {
-  unlockContent();
 });
 </script>
