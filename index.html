@@ -1,3 +1,21 @@
+<!-- Firebase App (the core Firebase SDK) -->
+<script src="https://www.gstatic.com/firebasejs/10.6.1/firebase-app-compat.js"></script>
+<!-- Firebase Authentication -->
+<script src="https://www.gstatic.com/firebasejs/10.6.1/firebase-auth-compat.js"></script>
+
+
+// ------------------ Firebase Setup ------------------
+const firebaseConfig = {
+  apiKey: "AIzaSyCLBNPDxjTLE9DqECxyOW2DKW1zjDd2cic",
+  authDomain: "dfcdynasty.firebaseapp.com",
+  projectId: "dfcdynasty",
+  storageBucket: "dfcdynasty.firebasestorage.app",
+  messagingSenderId: "554196354924",
+  appId: "1:554196354924:web:46cd13b6a3490f32d15549",
+  measurementId: "G-F9FET41Z8W"
+};
+
+
 <script>
 let authMode = 'signup';
 
@@ -36,16 +54,50 @@ function updateAuthModal() {
 }
 
 // Simple auth simulation (Supabase removed)
-function handleAuth(event) {
+// function handleAuth(event) {
+//   event.preventDefault();
+//   if (authMode === 'signup') {
+//     alert('🎉 Account created! You now have access to free content.');
+//   } else {
+//     alert('✅ Logged in successfully!');
+//   }
+//   closeAuth();
+//   unlockContent();
+// }
+
+  async function handleAuth(event) {
   event.preventDefault();
-  if (authMode === 'signup') {
-    alert('🎉 Account created! You now have access to free content.');
-  } else {
-    alert('✅ Logged in successfully!');
+  const form = event.target;
+  const email = form.querySelector('input[type="email"]').value;
+  const password = form.querySelector('input[type="password"]').value;
+
+  try {
+    if (authMode === 'signup') {
+      await auth.createUserWithEmailAndPassword(email, password);
+      alert('🎉 Account created! Free content unlocked!');
+    } else {
+      await auth.signInWithEmailAndPassword(email, password);
+      alert('✅ Logged in successfully! Free content unlocked!');
+    }
+    closeAuth();
+    form.reset();
+    unlockContent();
+  } catch (err) {
+    alert('❌ Error: ' + err.message);
   }
-  closeAuth();
-  unlockContent();
 }
+
+
+  auth.onAuthStateChanged(user => {
+  if (user) {
+    unlockContent();
+  }
+});
+
+
+
+
+  
 
 // Unlock content
 function unlockContent() {
